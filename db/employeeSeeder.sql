@@ -3,8 +3,8 @@ USE employee_db;
 INSERT INTO department 
 (name)
 VALUES
-("Sales"),
 ("Engineering"),
+("Sales"),
 ("Finance"),
 ("Legal")
 ;
@@ -12,13 +12,13 @@ VALUES
 INSERT INTO role
 (title, salary, department_id)
 VALUES
-("Lead Engineer", 125000, 2),
-("Software Engineer", 80000, 2), 
-("Sales Lead", 110000, 1), 
-("Salesperson", 75000, 1), 
+("Lead Engineer", 125000, 1),
+("Software Engineer", 80000, 1), 
+("Sales Lead", 110000, 2), 
+("Salesperson", 75000, 2), 
+("Accountant", 100000, 3),
 ("Legal Team Lead", 215000, 4),
-("Lawyer", 180000, 4), 
-("Accountant", 100000, 3)
+("Lawyer", 180000, 4)
 ;
 
 INSERT INTO employee 
