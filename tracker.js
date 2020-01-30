@@ -2,6 +2,7 @@ const inquirer = require("inquirer");
 const allEmployees = require("./lib/viewEmployees");
 const dbConnection = require("./db/dbConnection");
 const manageEmployees = require("./lib/startTracker");
+const listDepartments = require("./lib/viewDepartments");
 const ctable = require("console.table");
 
 
@@ -20,14 +21,15 @@ db.connect((err) => {
 });
 
 //put tracker inside of a function i can recursively call it
-const trackEmployees = () => {
+const trackEmployees =  () => {
 
     tracker().then((res) => {
         //running a switch to call functions based on choice
         switch (res.action) {
             case "View Departments":
                 //function not implemented yet, just writing skeleton passing db so i can use in departments function file
-                viewDepartments(db);
+                listDepartments.viewDepartments(db);
+                trackEmployees();
                 break;
     
             case "View Roles":
