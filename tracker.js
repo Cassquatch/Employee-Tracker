@@ -44,6 +44,8 @@ const trackEmployees =  () => {
                 
                  trackEmployees();
                 break;
+
+                //when you add the functions to add employees, roles, and departments, try writing a function for the inquirer prompts, then a separate function that does the query
     
             case "Exit":
                 db.end();
