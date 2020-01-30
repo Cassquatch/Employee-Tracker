@@ -1,0 +1,28 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tracker.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.0.4",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cassquatch/Employee-Tracker.git"
+  },
+  "author": "Cassidy Fortner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cassquatch/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/Cassquatch/Employee-Tracker#readme"
+}
