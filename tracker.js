@@ -6,6 +6,7 @@ const listDepartments = require("./lib/viewDepartments");
 const listRoles = require("./lib/viewRoles");
 const newEmployee = require("./lib/addEmployee");
 const newRole = require("./lib/addRole");
+const newDepartment = require("./lib/addDepartment");
 const ctable = require("console.table");
 
 
@@ -84,7 +85,19 @@ const trackEmployees = async () => {
                         });
                     });
                     break;
-                    
+
+                case "Add Department": 
+                    await newDepartment.addDepartment().then((res) =>{
+                         let query = `INSERT INTO department (name) VALUES ("${res.department}")`;
+
+                         db.query(query, (err, result) => {
+                             if(err) throw err;
+
+                             console.log("New department added!");
+                             trackEmployees();
+                         });
+                    });
+                    break;
                 case "Exit":
                     db.end();
 
