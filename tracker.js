@@ -5,11 +5,12 @@ const manageEmployees = require("./lib/startTracker");
 const listDepartments = require("./lib/viewDepartments");
 const listRoles = require("./lib/viewRoles");
 const newEmployee = require("./lib/addEmployee");
+const newRole = require("./lib/addRole");
 const ctable = require("console.table");
 
 
 //dbConnection.connection() is returning the createConnection, so db is becoming the connection here
-const db = dbConnection.connection("placeholder_user", "placeholder_pass");
+const db = dbConnection.connection("cassquatch", "mrmeseekslookatme101!");
 
 //assign the startTracker function here to get the initial prompt
 const tracker = manageEmployees.startTracker;
@@ -54,19 +55,36 @@ const trackEmployees = async () => {
                         let manager= res.manager;
                         
                         //split the above variables and parse them to grab the actual role id and manager id
-                        role_id = parseInt(role.split(" ")[0]);
-                        manager_id = parseInt(manager.split(" ")[0]);
+                        let role_id = parseInt(role.split(" ")[0]);
+                        let manager_id = parseInt(manager.split(" ")[0]);
                         //craft the query statment to insert our new employee thats been created
                         let query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${res.first_name}", "${res.last_name}", ${role_id}, ${manager_id})`;
-                        console.log("New employee added");
                         //send the query to the database, then call trackemployees again to continue the cli app
                         db.query(query, (err, result) => {
                             if(err) throw err
+                            console.log("New employee added");
                             trackEmployees();
                         });
                     });
                     break;
 
+                case "Add Role":
+                    await newRole.addRole(db).then((res) => {
+
+                        let department = res.department;
+
+                        let department_id = parseInt(department.split(" ")[0]);
+
+                        let query = `INSERT INTO role (title, salary, department_id) VALUES ("${res.role}", ${parseInt(res.salary)}, ${department_id})`;
+
+                        db.query(query, (err, result) => {
+                            if(err) throw err;
+                            console.log("New role added");
+                            trackEmployees();
+                        });
+                    });
+                    break;
+                    
                 case "Exit":
                     db.end();
 
