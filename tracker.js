@@ -7,11 +7,12 @@ const listRoles = require("./lib/viewRoles");
 const newEmployee = require("./lib/addEmployee");
 const newRole = require("./lib/addRole");
 const newDepartment = require("./lib/addDepartment");
+const updateRole = require("./lib/updateEmployeeRole");
 const ctable = require("console.table");
 
 
 //dbConnection.connection() is returning the createConnection, so db is becoming the connection here
-const db = dbConnection.connection("placeholder_user", "placeholder_pass");
+const db = dbConnection.connection("cassquatch", "mrmeseekslookatme101!");
 
 //assign the startTracker function here to get the initial prompt
 const tracker = manageEmployees.startTracker;
@@ -98,6 +99,27 @@ const trackEmployees = async () => {
                          });
                     });
                     break;
+
+                case "Update Employee Role":
+                    await updateRole.updateEmployeeRole(db).then((res) => {
+                        let emp = res.employee;
+                        let role = res.role;
+
+                        let emp_id = parseInt(emp.split(" ")[0]);
+                        let role_id = parseInt(role.split(" ")[0]);
+
+                        let query = `UPDATE employee SET role_id=${role_id} WHERE id=${emp_id}`;
+
+                        db.query(query, (err, result) => {
+                            if (err) throw err;
+
+                            console.log(`${emp} now has the role of ${role}`);
+                            trackEmployees();
+                        });
+                    });
+                    break;
+
+
                 case "Exit":
                     db.end();
 
