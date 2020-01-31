@@ -15,6 +15,7 @@ You will need to create your own user credentials by using
 
 ---> 
 CREATE USER 'your_username'@'localhost' IDENTIFIED BY 'your_password';
+
 GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'localhost'; 
 <---
 
