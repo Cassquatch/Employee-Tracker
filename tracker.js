@@ -50,10 +50,21 @@ const trackEmployees = async () => {
                 case "Add Employee":
                     await newEmployee.addEmployee(db).then((res) => {
                         console.log(res);
-                        let query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (??, ??, ??, ??)`;
+                        let role = res.role;
+                        let manager= res.manager;
+                        
+                        //split the above variables and parse them to grab the actual role id and manager id
+                        role_id = parseInt(role.split(" ")[0]);
+                        manager_id = parseInt(manager.split(" ")[0]);
+                        //craft the query statment to insert our new employee thats been created
+                        let query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${res.first_name}", "${res.last_name}", ${role_id}, ${manager_id})`;
                         console.log("New employee added");
+                        //send the query to the database, then call trackemployees again to continue the cli app
+                        db.query(query, (err, result) => {
+                            if(err) throw err
+                            trackEmployees();
+                        });
                     });
-                    trackEmployees();
                     break;
 
                 case "Exit":
@@ -61,8 +72,8 @@ const trackEmployees = async () => {
 
             }
         }
-        catch{
-            console.log(error);
+        catch(err){
+            console.log(err);
         }
     });
 }
