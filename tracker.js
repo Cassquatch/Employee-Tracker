@@ -11,7 +11,7 @@ const ctable = require("console.table");
 
 
 //dbConnection.connection() is returning the createConnection, so db is becoming the connection here
-const db = dbConnection.connection("cassquatch", "mrmeseekslookatme101!");
+const db = dbConnection.connection("placeholder_user", "placeholder_pass");
 
 //assign the startTracker function here to get the initial prompt
 const tracker = manageEmployees.startTracker;
